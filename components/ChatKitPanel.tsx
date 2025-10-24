@@ -62,6 +62,10 @@ export function ChatKitPanel({
   );
   const [widgetInstanceKey, setWidgetInstanceKey] = useState(0);
 
+  // Track agent activity
+  const [agentActivity, setAgentActivity] = useState<string | null>(null);
+  const [currentTool, setCurrentTool] = useState<string | null>(null);
+
   const setErrorState = useCallback((updates: Partial<ErrorState>) => {
     setErrors((current) => ({ ...current, ...updates }));
   }, []);
@@ -285,6 +289,42 @@ export function ChatKitPanel({
       name: string;
       params: Record<string, unknown>;
     }) => {
+      // Show user what tool is being used
+      const toolLabels: Record<string, string> = {
+        get_current_datetime: "Checking current date/time",
+        switch_theme: "Switching theme",
+        record_fact: "Saving information",
+      };
+
+      setCurrentTool(toolLabels[invocation.name] || `Using ${invocation.name}`);
+
+      if (invocation.name === "get_current_datetime") {
+        const now = new Date();
+        if (isDev) {
+          console.debug(
+            "[ChatKitPanel] get_current_datetime",
+            now.toISOString()
+          );
+        }
+        const result = {
+          datetime: now.toISOString(),
+          timestamp: now.getTime(),
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          formatted: now.toLocaleString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            timeZoneName: "short",
+          }),
+        };
+        setCurrentTool(null);
+        return result;
+      }
+
       if (invocation.name === "switch_theme") {
         const requested = invocation.params.theme;
         if (requested === "light" || requested === "dark") {
@@ -292,8 +332,10 @@ export function ChatKitPanel({
             console.debug("[ChatKitPanel] switch_theme", requested);
           }
           onThemeRequest(requested);
+          setCurrentTool(null);
           return { success: true };
         }
+        setCurrentTool(null);
         return { success: false };
       }
 
@@ -301,6 +343,7 @@ export function ChatKitPanel({
         const id = String(invocation.params.fact_id ?? "");
         const text = String(invocation.params.fact_text ?? "");
         if (!id || processedFacts.current.has(id)) {
+          setCurrentTool(null);
           return { success: true };
         }
         processedFacts.current.add(id);
@@ -309,15 +352,20 @@ export function ChatKitPanel({
           factId: id,
           factText: text.replace(/\s+/g, " ").trim(),
         });
+        setCurrentTool(null);
         return { success: true };
       }
 
+      setCurrentTool(null);
       return { success: false };
     },
     onResponseEnd: () => {
+      setAgentActivity(null);
+      setCurrentTool(null);
       onResponseEnd();
     },
     onResponseStart: () => {
+      setAgentActivity("Agent is thinking...");
       setErrorState({ integration: null, retryable: false });
     },
     onThreadChange: () => {
@@ -345,6 +393,13 @@ export function ChatKitPanel({
 
   return (
     <div className="relative pb-8 flex h-[90vh] w-full rounded-2xl flex-col overflow-hidden bg-white shadow-sm transition-colors dark:bg-slate-900">
+      {/* Agent Activity Indicator */}
+      {(agentActivity || currentTool) && (
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-full shadow-lg animate-pulse">
+          {currentTool || agentActivity}
+        </div>
+      )}
+
       <ChatKit
         key={widgetInstanceKey}
         control={chatkit.control}
