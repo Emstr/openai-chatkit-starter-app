@@ -13,9 +13,10 @@ export const STARTER_PROMPTS: StartScreenPrompt[] = [
   },
 ];
 
-export const PLACEHOLDER_INPUT = "Ask anything...";
+export const PLACEHOLDER_INPUT = "Ask Marloo anything...";
 
-export const GREETING = "How can I help you today?";
+export const GREETING =
+  "Hi! I'm Marloo, your AI assistant. How can I help you today?";
 
 export const getThemeConfig = (theme: ColorScheme): ThemeOption => ({
   color: {

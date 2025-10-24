@@ -3,8 +3,16 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AgentKit demo",
-  description: "Demo of ChatKit with hosted workflow",
+  title: "Ask Marloo",
+  description: "Ask Marloo - Your AI assistant for help with any questions",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/faviconzz.ico", type: "image/x-icon" },
+    ],
+    shortcut: "/faviconzz.ico",
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({
