@@ -11,6 +11,7 @@ import {
   getThemeConfig,
 } from "@/lib/config";
 import { ErrorOverlay } from "./ErrorOverlay";
+import { SpeakerModal } from "./SpeakerModal";
 import type { ColorScheme } from "@/hooks/useColorScheme";
 
 export type FactAction = {
@@ -65,6 +66,9 @@ export function ChatKitPanel({
   // Track agent activity
   const [agentActivity, setAgentActivity] = useState<string | null>(null);
   const [currentTool, setCurrentTool] = useState<string | null>(null);
+  
+  // Track modal state
+  const [modalSpeakerId, setModalSpeakerId] = useState<string | null>(null);
 
   const setErrorState = useCallback((updates: Partial<ErrorState>) => {
     setErrors((current) => ({ ...current, ...updates }));
@@ -308,9 +312,8 @@ export function ChatKitPanel({
         
         if (action.type === 'view_speaker') {
           const speakerId = action.payload.id as string;
-          console.log('[ChatKitPanel] Navigating to speaker:', speakerId);
-          console.log('[ChatKitPanel] URL:', `/sp/${speakerId}`);
-          window.location.href = `/sp/${speakerId}`;
+          console.log('[ChatKitPanel] Opening speaker modal:', speakerId);
+          setModalSpeakerId(speakerId);
         }
         
         console.log('[ChatKitPanel] Action handler complete');
@@ -423,34 +426,44 @@ export function ChatKitPanel({
   }
 
   return (
-    <div className="relative pb-8 flex h-[90vh] w-full rounded-2xl flex-col overflow-hidden bg-white shadow-sm transition-colors dark:bg-slate-900">
-      {/* Agent Activity Indicator */}
-      {(agentActivity || currentTool) && (
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-full shadow-lg animate-pulse">
-          {currentTool || agentActivity}
-        </div>
-      )}
+    <>
+      <div className="relative pb-8 flex h-[90vh] w-full rounded-2xl flex-col overflow-hidden bg-white shadow-sm transition-colors dark:bg-slate-900">
+        {/* Agent Activity Indicator */}
+        {(agentActivity || currentTool) && (
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-full shadow-lg animate-pulse">
+            {currentTool || agentActivity}
+          </div>
+        )}
 
-      <ChatKit
-        key={widgetInstanceKey}
-        control={chatkit.control}
-        className={
-          blockingError || isInitializingSession
-            ? "pointer-events-none opacity-0"
-            : "block h-full w-full"
-        }
-      />
-      <ErrorOverlay
-        error={blockingError}
-        fallbackMessage={
-          blockingError || !isInitializingSession
-            ? null
-            : "Loading assistant session..."
-        }
-        onRetry={blockingError && errors.retryable ? handleResetChat : null}
-        retryLabel="Restart chat"
-      />
-    </div>
+        <ChatKit
+          key={widgetInstanceKey}
+          control={chatkit.control}
+          className={
+            blockingError || isInitializingSession
+              ? "pointer-events-none opacity-0"
+              : "block h-full w-full"
+          }
+        />
+        <ErrorOverlay
+          error={blockingError}
+          fallbackMessage={
+            blockingError || !isInitializingSession
+              ? null
+              : "Loading assistant session..."
+          }
+          onRetry={blockingError && errors.retryable ? handleResetChat : null}
+          retryLabel="Restart chat"
+        />
+      </div>
+      
+      {/* Speaker Modal */}
+      {modalSpeakerId && (
+        <SpeakerModal
+          speakerId={modalSpeakerId}
+          onClose={() => setModalSpeakerId(null)}
+        />
+      )}
+    </>
   );
 }
 
