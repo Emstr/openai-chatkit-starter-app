@@ -11,6 +11,26 @@ export const STARTER_PROMPTS: StartScreenPrompt[] = [
     prompt: "What can you do?",
     icon: "circle-question",
   },
+  {
+    label: "Show me today's agenda",
+    prompt: "Show me today's agenda",
+    icon: "calendar",
+  },
+  {
+    label: "Find speakers",
+    prompt: "Find speakers",
+    icon: "user",
+  },
+  {
+    label: "What talks are happening?",
+    prompt: "What talks are happening?",
+    icon: "document",
+  },
+  {
+    label: "Recommend a talk for me",
+    prompt: "Recommend a talk for me",
+    icon: "sparkle",
+  },
 ];
 
 export const PLACEHOLDER_INPUT = "Ask Marloo anything...";
