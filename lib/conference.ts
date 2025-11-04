@@ -153,6 +153,21 @@ export function getTalksBySpeaker(speakerName: string): Talk[] {
   );
 }
 
+// Helper to get unique speaking dates for a speaker
+export function getSpeakerSpeakingDates(speakerName: string): string[] {
+  const talks = getTalksBySpeaker(speakerName);
+  const uniqueDates = new Set<string>();
+  
+  talks.forEach((talk) => {
+    const dateKey = talk.Date.split("T")[0]; // Extract just the date part
+    if (dateKey && dateKey !== "0001-01-01") { // Filter out invalid dates
+      uniqueDates.add(dateKey);
+    }
+  });
+  
+  return Array.from(uniqueDates).sort();
+}
+
 // Helper to get slug for a talk
 export function getTalkSlug(talk: Talk): string {
   return generateSlug(talk.Name);

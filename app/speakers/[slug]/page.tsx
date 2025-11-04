@@ -6,6 +6,77 @@ import Image from "next/image";
 // Allow dynamic speaker slugs and ContactIds
 export const dynamicParams = true;
 
+// Helper to extract YouTube video ID from various URL formats
+function extractYouTubeId(url: string): string | null {
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+    /youtube\.com\/.*[?&]v=([^&\n?#]+)/,
+  ];
+  
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match && match[1]) {
+      return match[1];
+    }
+  }
+  
+  return null;
+}
+
+// Extract YouTube video URLs from HTML content
+function extractYouTubeVideos(html: string): string[] {
+  const videoIds: string[] = [];
+  const linkRegex = /<a[^>]+href=["']([^"']+)["'][^>]*>.*?Watch[^<]*video[^<]*<\/a>/gi;
+  
+  let match;
+  while ((match = linkRegex.exec(html)) !== null) {
+    const url = match[1];
+    const videoId = extractYouTubeId(url);
+    if (videoId) {
+      videoIds.push(videoId);
+    }
+  }
+  
+  return [...new Set(videoIds)]; // Remove duplicates
+}
+
+// Remove video links from HTML (they'll be replaced with embeds)
+function removeVideoLinks(html: string): string {
+  return html.replace(/<b><u><a[^>]+href=["'][^"']+["'][^>]*>.*?Watch[^<]*video[^<]*<\/a><\/u><\/b>/gi, '');
+}
+
+// Helper to format date
+function formatDate(dateStr: string): string {
+  try {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    });
+  } catch {
+    return dateStr;
+  }
+}
+
+// Helper to format time
+function formatTime(time: string): string {
+  try {
+    const [hours, minutes] = time.split(":");
+    const hour = parseInt(hours, 10);
+    const ampm = hour >= 12 ? "PM" : "AM";
+    const displayHour = hour % 12 || 12;
+    return `${displayHour}:${minutes} ${ampm}`;
+  } catch {
+    return time;
+  }
+}
+
+// Helper to format time range
+function formatTimeRange(startTime: string, endTime: string): string {
+  return `${formatTime(startTime)} - ${formatTime(endTime)}`;
+}
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
@@ -19,9 +90,14 @@ export default async function SpeakerPage({ params }: PageProps) {
   }
 
   const speakerTalks = getTalksBySpeaker(speaker.DisplayName);
+  
+  // Extract YouTube videos from bio
+  const bioContent = speaker.Bio || speaker.PresentationBio || "";
+  const videoIds = extractYouTubeVideos(bioContent);
+  const bioWithoutVideoLinks = removeVideoLinks(bioContent);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="container mx-auto px-4 py-8 max-w-2xl">
       <Link href="/speakers" className="text-blue-600 hover:underline mb-4 inline-block">
         ← Back to all speakers
       </Link>
@@ -71,41 +147,98 @@ export default async function SpeakerPage({ params }: PageProps) {
           </div>
         </div>
 
-        {(speaker.Bio || speaker.PresentationBio) && (
-          <div className="prose max-w-none mb-8">
-            {speaker.Bio && (
-              <div 
-                className="text-lg text-gray-700"
-                dangerouslySetInnerHTML={{ __html: speaker.Bio }}
-              />
+        {(bioWithoutVideoLinks || videoIds.length > 0) && (
+          <>
+            {bioWithoutVideoLinks && (
+              <div className="prose prose-lg max-w-none mb-8">
+                <div 
+                  className="text-gray-700 leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: bioWithoutVideoLinks }}
+                />
+              </div>
             )}
-            {speaker.PresentationBio && !speaker.Bio && (
-              <div 
-                className="text-lg text-gray-700"
-                dangerouslySetInnerHTML={{ __html: speaker.PresentationBio }}
-              />
+            
+            {videoIds.length > 0 && (
+              <div className="mb-8 space-y-6">
+                {videoIds.map((videoId) => (
+                  <div key={videoId} className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full rounded-lg"
+                      src={`https://www.youtube.com/embed/${videoId}`}
+                      title="Speaker video"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                ))}
+              </div>
             )}
-          </div>
+          </>
         )}
 
         {speakerTalks.length > 0 && (
           <div className="mt-8 pt-6 border-t">
-            <h2 className="text-2xl font-bold mb-4">Talks</h2>
-            <ul className="space-y-4">
+            <h2 className="text-2xl font-bold mb-6">Talks</h2>
+            <div className="space-y-4">
               {speakerTalks.map((talk) => (
-                <li key={talk.Id}>
-                  <Link
-                    href={`/talks/${getTalkSlug(talk)}`}
-                    className="text-xl text-blue-600 hover:underline"
-                  >
-                    {talk.Name}
-                  </Link>
-                  {talk.Location && (
-                    <span className="text-gray-500 ml-2">• {talk.Location}</span>
-                  )}
-                </li>
+                <Link
+                  key={talk.Id}
+                  href={`/talks/${getTalkSlug(talk)}`}
+                  className="block group"
+                >
+                  <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-200">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-3 transition-colors">
+                      {talk.Name}
+                    </h3>
+                    
+                    {/* Overview/Description */}
+                    {talk.Overview && (
+                      <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2 leading-relaxed">
+                        {talk.Overview.replace(/<[^>]*>/g, "")}
+                      </p>
+                    )}
+                    
+                    <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                      {/* Date */}
+                      <div className="flex items-center gap-1.5">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span>{formatDate(talk.Date)}</span>
+                      </div>
+                      
+                      {/* Time */}
+                      <div className="flex items-center gap-1.5">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>{formatTimeRange(talk.StartTime, talk.EndTime)}</span>
+                      </div>
+                      
+                      {/* Location */}
+                      {talk.Location && (
+                        <div className="flex items-center gap-1.5">
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                          <span>{talk.Location}</span>
+                        </div>
+                      )}
+                      
+                      {/* Session Type */}
+                      {talk.AgendaTypeName && (
+                        <div className="ml-auto">
+                          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+                            {talk.AgendaTypeName}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </Link>
               ))}
-            </ul>
+            </div>
           </div>
         )}
       </article>
