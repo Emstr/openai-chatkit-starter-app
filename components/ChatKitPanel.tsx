@@ -285,6 +285,37 @@ export function ChatKitPanel({
     threadItemActions: {
       feedback: false,
     },
+    widgets: {
+      onAction: async (
+        action: { type: string; payload?: Record<string, unknown> },
+        widgetItem: { id: string; widget: unknown }
+      ) => {
+        console.log('[ChatKitPanel] Widget action received:', action);
+        console.log('[ChatKitPanel] Action type:', action.type);
+        console.log('[ChatKitPanel] Action payload:', action.payload);
+        
+        if (!action.payload) {
+          console.log('[ChatKitPanel] No payload provided');
+          return;
+        }
+        
+        if (action.type === 'view_session') {
+          const sessionId = action.payload.id as string;
+          console.log('[ChatKitPanel] Navigating to session:', sessionId);
+          console.log('[ChatKitPanel] URL:', `/s/${sessionId}`);
+          window.location.href = `/s/${sessionId}`;
+        }
+        
+        if (action.type === 'view_speaker') {
+          const speakerId = action.payload.id as string;
+          console.log('[ChatKitPanel] Navigating to speaker:', speakerId);
+          console.log('[ChatKitPanel] URL:', `/sp/${speakerId}`);
+          window.location.href = `/sp/${speakerId}`;
+        }
+        
+        console.log('[ChatKitPanel] Action handler complete');
+      },
+    },
     onClientTool: async (invocation: {
       name: string;
       params: Record<string, unknown>;
