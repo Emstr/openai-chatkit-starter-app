@@ -97,13 +97,13 @@ export default async function SpeakerPage({ params }: PageProps) {
   const bioWithoutVideoLinks = removeVideoLinks(bioContent);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-2xl">
-      <Link href="/speakers" className="text-blue-600 hover:underline mb-4 inline-block">
+    <div className="container mx-auto px-6 py-12 max-w-2xl">
+      <Link href="/speakers" className="text-blue-600 hover:underline mb-6 inline-block">
         ← Back to all speakers
       </Link>
       
-      <article className="mt-8">
-        <div className="flex items-start gap-6 mb-6">
+      <article className="mt-12">
+        <div className="flex items-start gap-8 mb-8">
           {speaker.PhotoUrl && (
             <Image
               src={speaker.PhotoUrl}
@@ -114,14 +114,14 @@ export default async function SpeakerPage({ params }: PageProps) {
             />
           )}
           <div>
-            <h1 className="text-4xl font-bold mb-2">{speaker.DisplayName}</h1>
+            <h1 className="text-4xl font-bold mb-4">{speaker.DisplayName}</h1>
             {speaker.Position && speaker.Organization && (
-              <p className="text-xl text-gray-600 mb-4">
+              <p className="text-xl text-gray-600 mb-6">
                 {speaker.Position} • {speaker.Organization}
               </p>
             )}
             {(speaker.SocialMedia.FullTwitterHandle || speaker.SocialMedia.FullLinkedInUrl) && (
-              <div className="flex gap-4">
+              <div className="flex gap-6">
                 {speaker.SocialMedia.FullTwitterHandle && (
                   <a
                     href={speaker.SocialMedia.FullTwitterHandle}
@@ -177,9 +177,9 @@ export default async function SpeakerPage({ params }: PageProps) {
         )}
 
         {speakerTalks.length > 0 && (
-          <div className="mt-8 pt-6 border-t">
-            <h2 className="text-2xl font-bold mb-6">Talks</h2>
-            <div className="space-y-4">
+          <div className="mt-12 pt-8 border-t">
+            <h2 className="text-2xl font-bold mb-8">Talks</h2>
+            <div className="space-y-6">
               {speakerTalks.map((talk) => (
                 <Link
                   key={talk.Id}
@@ -193,12 +193,12 @@ export default async function SpeakerPage({ params }: PageProps) {
                     
                     {/* Overview/Description */}
                     {talk.Overview && (
-                      <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2 leading-relaxed">
+                      <p className="text-gray-600 dark:text-gray-400 mb-6 line-clamp-2 leading-relaxed">
                         {talk.Overview.replace(/<[^>]*>/g, "")}
                       </p>
                     )}
                     
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                    <div className="flex flex-wrap items-center gap-6 text-sm text-gray-600 dark:text-gray-400">
                       {/* Date */}
                       <div className="flex items-center gap-1.5">
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

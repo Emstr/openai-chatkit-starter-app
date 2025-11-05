@@ -1,8 +1,15 @@
 import Script from "next/script";
 import type { Metadata } from "next";
+import { Onest } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+
+const onest = Onest({
+  subsets: ["latin"],
+  variable: "--font-onest",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Ask Marloo",
@@ -23,14 +30,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={onest.variable}>
       <head>
         <Script
           src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js?publicKey=domain_pk_68fb9921e13881908b45fd6f6b4149ac0fdc061de51ddba7"
           strategy="beforeInteractive"
         />
       </head>
-      <body className="antialiased flex flex-col min-h-screen">
+      <body className="antialiased flex flex-col min-h-screen font-sans">
         <Navigation />
         <main className="flex-1">
           {children}

@@ -48,27 +48,37 @@ export default function TalksPage() {
   }, [allTalks, selectedDay]);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
-      <div className="flex items-center justify-between mb-10">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">Conference Talks</h1>
-        <div className="flex gap-3">
-          <Link
-            href="/speakers"
-            className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
-          >
-            View Speakers
-          </Link>
-          <Link
-            href="/agenda"
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm hover:shadow-md"
-          >
-            View Agenda
-          </Link>
+    <div className="min-h-screen">
+      {/* Colored header section */}
+      <div className="bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-600 py-32 mb-8">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-0">
+            <div>
+              <h1 className="text-4xl font-bold text-white">FAAA Talks</h1>
+              <p className="text-white/90 text-lg mt-2">Explore sessions and presentations</p>
+            </div>
+            <div className="flex gap-3">
+              <Link
+                href="/speakers"
+                className="px-4 py-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-lg hover:bg-white/30 transition-colors text-white font-medium"
+              >
+                View Speakers
+              </Link>
+              <Link
+                href="/agenda"
+                className="px-4 py-2 bg-white text-blue-600 rounded-lg hover:bg-gray-50 transition-colors shadow-sm hover:shadow-md font-medium"
+              >
+                View Agenda
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 
+      {/* Main content */}
+      <div className="container mx-auto px-6 py-12 max-w-6xl">
       {/* Day Filter Navigation */}
-      <div className="mb-8 flex flex-wrap items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-4">
+      <div className="mb-12 flex flex-wrap items-center gap-3 border-b border-gray-200 dark:border-gray-700 pb-6">
         <span className="text-sm font-medium text-gray-700 dark:text-gray-300 mr-2">Filter by day:</span>
         {(["all", "Tuesday", "Wednesday", "Thursday"] as DayFilter[]).map((day) => (
           <button
@@ -97,26 +107,17 @@ export default function TalksPage() {
             : `No talks found for ${selectedDay}.`}
         </p>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {filteredTalks.map((talk) => (
             <Link
               key={talk.Id}
               href={`/talks/${getTalkSlug(talk)}`}
-              className="group relative block bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+              className="group relative block bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
             >
               {/* Subtle gradient overlay on hover */}
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 to-purple-50/0 group-hover:from-blue-50/50 group-hover:to-purple-50/30 dark:group-hover:from-blue-900/10 dark:group-hover:to-purple-900/10 transition-all duration-300 pointer-events-none" />
               
               <div className="relative">
-                {/* Talk Type Badge */}
-                {talk.AgendaTypeName && (
-                  <div className="mb-3">
-                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
-                      {talk.AgendaTypeName}
-                    </span>
-                  </div>
-                )}
-
                 {/* Speaker Photos */}
                 {talk.Speakers && talk.Speakers.length > 0 && (
                   <div className="mb-4 flex items-center">
@@ -154,7 +155,7 @@ export default function TalksPage() {
                 )}
 
                 {/* Title */}
-                <h2 className="text-xl font-bold mb-3 text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                <h2 className="!text-lg md:!text-xl font-bold mb-3 text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
                   {talk.Name}
                 </h2>
 
@@ -225,6 +226,7 @@ export default function TalksPage() {
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 }

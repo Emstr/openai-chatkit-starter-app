@@ -49,20 +49,20 @@ export default async function TalkPage({ params }: PageProps) {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <Link href="/talks" className="text-blue-600 hover:underline mb-4 inline-block">
+    <div className="container mx-auto px-6 py-12 max-w-4xl">
+      <Link href="/talks" className="text-blue-600 hover:underline mb-6 inline-block">
         ← Back to all talks
       </Link>
       
-      <article className="mt-8">
-        <h1 className="text-4xl font-bold mb-4">{talk.Name}</h1>
+      <article className="mt-12">
+        <h1 className="text-4xl font-bold mb-6">{talk.Name}</h1>
         
         {talk.Speakers && talk.Speakers.length > 0 && (
-          <div className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">Speakers</h2>
-            <div className="space-y-3">
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold mb-4">Speakers</h2>
+            <div className="space-y-4">
               {talk.Speakers.map((speaker, index) => (
-                <div key={speaker.DisplayName || `speaker-${index}`} className="flex items-start gap-4">
+                <div key={speaker.DisplayName || `speaker-${index}`} className="flex items-start gap-6">
                   {speaker.PhotoUrl && (
                     <Image
                       src={speaker.PhotoUrl}
@@ -96,7 +96,7 @@ export default async function TalkPage({ params }: PageProps) {
         )}
 
         {talk.Details && (
-          <div className="prose max-w-none mb-6">
+          <div className="prose max-w-none mb-8">
             <div 
               className="text-lg text-gray-700"
               dangerouslySetInnerHTML={{ __html: talk.Details }}
@@ -105,7 +105,7 @@ export default async function TalkPage({ params }: PageProps) {
         )}
 
         {talk.Overview && (
-          <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+          <div className="mb-8 p-6 bg-gray-50 rounded-lg">
             <div 
               className="text-gray-700"
               dangerouslySetInnerHTML={{ __html: talk.Overview }}

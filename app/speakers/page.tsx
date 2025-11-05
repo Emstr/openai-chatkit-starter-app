@@ -50,27 +50,37 @@ export default function SpeakersPage() {
   }, [allSpeakers, selectedDay]);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
-      <div className="flex items-center justify-between mb-10">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">Speakers</h1>
-        <div className="flex gap-3">
-          <Link
-            href="/talks"
-            className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
-          >
-            View Talks
-          </Link>
-          <Link
-            href="/agenda"
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm hover:shadow-md"
-          >
-            View Agenda
-          </Link>
+    <div className="min-h-screen">
+      {/* Colored header section */}
+      <div className="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 py-32 mb-8">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-0">
+            <div>
+              <h1 className="text-4xl font-bold text-white">FAAA Speakers</h1>
+              <p className="text-white/90 text-lg mt-2">Meet the experts sharing their insights</p>
+            </div>
+            <div className="flex gap-3">
+              <Link
+                href="/talks"
+                className="px-4 py-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-lg hover:bg-white/30 transition-colors text-white font-medium"
+              >
+                View Talks
+              </Link>
+              <Link
+                href="/agenda"
+                className="px-4 py-2 bg-white text-purple-600 rounded-lg hover:bg-gray-50 transition-colors shadow-sm hover:shadow-md font-medium"
+              >
+                View Agenda
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 
+      {/* Main content */}
+      <div className="container mx-auto px-6 py-12 max-w-6xl">
       {/* Day Filter Navigation */}
-      <div className="mb-8 flex flex-wrap items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-4">
+      <div className="mb-12 flex flex-wrap items-center gap-3 border-b border-gray-200 dark:border-gray-700 pb-6">
         <span className="text-sm font-medium text-gray-700 dark:text-gray-300 mr-2">Filter by day:</span>
         {(["all", "Tuesday", "Wednesday", "Thursday"] as DayFilter[]).map((day) => (
           <button
@@ -99,7 +109,7 @@ export default function SpeakersPage() {
             : `No speakers found for ${selectedDay}.`}
         </p>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {filteredSpeakers.map((speaker, index) => {
             const bioText = (speaker.Bio || speaker.PresentationBio || "").replace(/<[^>]*>/g, "");
             const hasSocialMedia = speaker.SocialMedia && (speaker.SocialMedia.FullTwitterHandle || speaker.SocialMedia.FullLinkedInUrl);
@@ -109,7 +119,7 @@ export default function SpeakersPage() {
               <Link
                 key={speaker.DisplayName || `speaker-${index}`}
                 href={`/speakers/${getSpeakerSlug(speaker)}`}
-                className="group relative block bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                className="group relative block bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
               >
                 {/* Subtle gradient overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 to-purple-50/0 group-hover:from-blue-50/50 group-hover:to-purple-50/30 dark:group-hover:from-blue-900/10 dark:group-hover:to-purple-900/10 transition-all duration-300 pointer-events-none" />
@@ -138,7 +148,7 @@ export default function SpeakersPage() {
                   </div>
 
                   {/* Name */}
-                  <h2 className="text-xl font-bold mb-2 text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 text-center">
+                  <h2 className="!text-lg md:!text-xl font-bold mb-2 text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 text-center">
                     {speaker.DisplayName}
                   </h2>
 
@@ -201,6 +211,7 @@ export default function SpeakersPage() {
           })}
         </div>
       )}
+      </div>
     </div>
   );
 }
