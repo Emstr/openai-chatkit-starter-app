@@ -4,6 +4,7 @@ import { Onest } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { FloatingChat } from "@/components/FloatingChat";
 
 const onest = Onest({
   subsets: ["latin"],
@@ -43,6 +44,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <FloatingChat />
       </body>
     </html>
   );

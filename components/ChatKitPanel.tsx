@@ -427,7 +427,7 @@ export function ChatKitPanel({
 
   return (
     <>
-      <div className="relative pb-8 flex h-[90vh] w-full rounded-2xl flex-col overflow-hidden bg-white shadow-sm transition-colors dark:bg-slate-900">
+      <div className="relative flex h-full w-full flex-col overflow-hidden bg-transparent">
         {/* Agent Activity Indicator */}
         {(agentActivity || currentTool) && (
           <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-full shadow-lg animate-pulse">
