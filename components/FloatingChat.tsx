@@ -120,7 +120,6 @@ export function FloatingChat() {
               theme={scheme}
               onWidgetAction={handleWidgetAction}
               onResponseEnd={handleResponseEnd}
-              onThemeRequest={() => {}}
             />
           </div>
         </div>

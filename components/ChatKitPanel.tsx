@@ -25,7 +25,6 @@ type ChatKitPanelProps = {
   theme: ColorScheme;
   onWidgetAction: (action: FactAction) => Promise<void>;
   onResponseEnd: () => void;
-  onThemeRequest: (scheme: ColorScheme) => void;
 };
 
 type ErrorState = {
@@ -49,7 +48,6 @@ export function ChatKitPanel({
   theme,
   onWidgetAction,
   onResponseEnd,
-  onThemeRequest,
 }: ChatKitPanelProps) {
   const processedFacts = useRef(new Set<string>());
   const [errors, setErrors] = useState<ErrorState>(() => createInitialErrors());
@@ -292,8 +290,7 @@ export function ChatKitPanel({
     },
     widgets: {
       onAction: async (
-        action: { type: string; payload?: Record<string, unknown> },
-        widgetItem: { id: string; widget: unknown }
+        action: { type: string; payload?: Record<string, unknown> }
       ) => {
         console.log('[ChatKitPanel] Widget action received:', action);
         console.log('[ChatKitPanel] Action type:', action.type);

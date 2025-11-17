@@ -19,7 +19,7 @@ export default function NotFound() {
           Page not found
         </h2>
         <p className="text-lg md:text-xl text-white mb-8 opacity-90">
-          Sorry, we couldn't find the page you're looking for.
+          Sorry, we couldn&apos;t find the page you&apos;re looking for.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
