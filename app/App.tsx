@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useChat } from "@/contexts/ChatContext";
 
 // Icon components
 const QuestionIcon = () => (
@@ -40,8 +41,10 @@ const AgendaIcon = () => (
 );
 
 export default function App() {
+  const { openChat } = useChat();
+  
   const quickLinks = [
-    { href: "#", label: "Ask a question", icon: QuestionIcon },
+    { href: "#", label: "Ask a question", icon: QuestionIcon, onClick: openChat },
     { href: "/speakers", label: "View Speakers", icon: SpeakersIcon },
     { href: "/talks", label: "View Talks", icon: TalksIcon },
     { href: "/agenda", label: "View Agenda", icon: AgendaIcon },
@@ -84,6 +87,19 @@ export default function App() {
         <div className="mt-16 flex flex-wrap items-center justify-center gap-4">
           {quickLinks.map((link) => {
             const IconComponent = link.icon;
+            // If it has an onClick handler, render as button instead of Link
+            if (link.onClick) {
+              return (
+                <button
+                  key={link.href}
+                  onClick={link.onClick}
+                  className="group flex items-center gap-2 rounded-xl bg-white border-2 border-gray-200 px-6 py-3 text-base font-medium text-gray-900 transition-all hover:border-gray-300 hover:shadow-md"
+                >
+                  <IconComponent />
+                  <span>{link.label}</span>
+                </button>
+              );
+            }
             return (
               <Link
                 key={link.href}

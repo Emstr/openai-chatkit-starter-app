@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import { ChatKitPanel, type FactAction } from "./ChatKitPanel";
+import { useChat } from "@/contexts/ChatContext";
 
 export function FloatingChat() {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, openChat, closeChat } = useChat();
   // Always use light theme
   const scheme = "light";
 
@@ -26,7 +27,7 @@ export function FloatingChat() {
       {!isOpen && (
         <div className="fixed bottom-0 left-0 right-0 z-[80] mx-auto w-full max-w-[760px] px-4 pb-6">
           <button
-            onClick={() => setIsOpen(true)}
+            onClick={openChat}
             className="w-full"
             aria-label="Open chat"
           >
@@ -74,7 +75,7 @@ export function FloatingChat() {
       {isOpen && (
         <div
           className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm animate-fade-in"
-          onClick={() => setIsOpen(false)}
+          onClick={closeChat}
           aria-hidden="true"
         />
       )}
@@ -92,7 +93,7 @@ export function FloatingChat() {
               Ask Marloo
             </h2>
             <button
-              onClick={() => setIsOpen(false)}
+              onClick={closeChat}
               className="rounded-full p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900"
               aria-label="Close chat"
             >

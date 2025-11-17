@@ -6,6 +6,7 @@ import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { FloatingChat } from "@/components/FloatingChat";
+import { ChatProvider } from "@/contexts/ChatContext";
 
 const onest = Onest({
   subsets: ["latin"],
@@ -40,13 +41,15 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased flex flex-col min-h-screen font-sans">
-        <Navigation />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        <FloatingChat />
-        <Analytics />
+        <ChatProvider>
+          <Navigation />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <FloatingChat />
+          <Analytics />
+        </ChatProvider>
       </body>
     </html>
   );
