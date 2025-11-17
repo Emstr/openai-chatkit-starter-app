@@ -12,9 +12,9 @@ export const STARTER_PROMPTS: StartScreenPrompt[] = [
     icon: "circle-question",
   },
   {
-    label: "Show me today's agenda",
-    prompt: "Show me today's agenda",
-    icon: "calendar",
+    label: "What is Marloo?",
+    prompt: "What is Marloo?",
+    icon: "sparkle",
   },
   {
     label: "Find speakers",
