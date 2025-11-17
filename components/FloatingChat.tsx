@@ -2,11 +2,11 @@
 
 import { useState, useCallback } from "react";
 import { ChatKitPanel, type FactAction } from "./ChatKitPanel";
-import { useColorScheme } from "@/hooks/useColorScheme";
 
 export function FloatingChat() {
   const [isOpen, setIsOpen] = useState(false);
-  const { scheme, setScheme } = useColorScheme();
+  // Always use light theme
+  const scheme = "light";
 
   const handleWidgetAction = useCallback(async (action: FactAction) => {
     if (process.env.NODE_ENV !== "production") {
@@ -31,14 +31,14 @@ export function FloatingChat() {
             aria-label="Open chat"
           >
             {/* Match ChatKit composer styling - rounded-full per theme config */}
-            <div className="flex w-full items-center gap-4 rounded-full border-2 border-gray-200 bg-white px-6 py-5 shadow-sm transition-all hover:border-gray-300 hover:shadow-md dark:border-gray-700 dark:bg-slate-800 dark:hover:border-gray-600">
+            <div className="flex w-full items-center gap-4 rounded-full border-2 border-gray-200 bg-white px-6 py-5 shadow-sm transition-all hover:border-gray-300 hover:shadow-md">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={2}
                 stroke="currentColor"
-                className="h-6 w-6 flex-shrink-0 text-gray-400 dark:text-gray-500"
+                className="h-6 w-6 flex-shrink-0 text-gray-400"
               >
                 <path
                   strokeLinecap="round"
@@ -46,17 +46,17 @@ export function FloatingChat() {
                   d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"
                 />
               </svg>
-              <span className="flex-1 text-left text-base text-gray-500 dark:text-gray-400">
+              <span className="flex-1 text-left text-base text-gray-500">
                 Ask Marloo anything...
               </span>
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gray-900 dark:bg-gray-100">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gray-900">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={2.5}
                   stroke="currentColor"
-                  className="h-4 w-4 text-white dark:text-gray-900"
+                  className="h-4 w-4 text-white"
                 >
                   <path
                     strokeLinecap="round"
@@ -85,15 +85,15 @@ export function FloatingChat() {
           isOpen ? "translate-y-0" : "translate-y-full"
         } ${isOpen ? "" : "pointer-events-none"}`}
       >
-        <div className="relative flex h-[90vh] max-h-[90vh] flex-col overflow-hidden rounded-t-2xl bg-white shadow-2xl transition-colors dark:bg-slate-900">
+        <div className="relative flex h-[90vh] max-h-[90vh] flex-col overflow-hidden rounded-t-2xl bg-white shadow-2xl transition-colors">
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4 dark:border-gray-700">
-            <h2 className="text-base font-semibold text-gray-900 dark:text-white">
+          <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
+            <h2 className="text-base font-semibold text-gray-900">
               Ask Marloo
             </h2>
             <button
               onClick={() => setIsOpen(false)}
-              className="rounded-full p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-100"
+              className="rounded-full p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900"
               aria-label="Close chat"
             >
               <svg
@@ -119,7 +119,7 @@ export function FloatingChat() {
               theme={scheme}
               onWidgetAction={handleWidgetAction}
               onResponseEnd={handleResponseEnd}
-              onThemeRequest={setScheme}
+              onThemeRequest={() => {}}
             />
           </div>
         </div>

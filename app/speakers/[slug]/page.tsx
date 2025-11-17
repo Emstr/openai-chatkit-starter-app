@@ -186,19 +186,19 @@ export default async function SpeakerPage({ params }: PageProps) {
                   href={`/talks/${getTalkSlug(talk)}`}
                   className="block group"
                 >
-                  <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-200">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-3 transition-colors">
+                  <div className="bg-white">
+                    <h3 className="text-xl font-semibold text-gray-900">
                       {talk.Name}
                     </h3>
                     
                     {/* Overview/Description */}
                     {talk.Overview && (
-                      <p className="text-gray-600 dark:text-gray-400 mb-6 line-clamp-2 leading-relaxed">
+                      <p className="text-gray-600">
                         {talk.Overview.replace(/<[^>]*>/g, "")}
                       </p>
                     )}
                     
-                    <div className="flex flex-wrap items-center gap-6 text-sm text-gray-600 dark:text-gray-400">
+                    <div className="flex flex-wrap items-center gap-6 text-sm text-gray-600">
                       {/* Date */}
                       <div className="flex items-center gap-1.5">
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -229,7 +229,7 @@ export default async function SpeakerPage({ params }: PageProps) {
                       {/* Session Type */}
                       {talk.AgendaTypeName && (
                         <div className="ml-auto">
-                          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+                          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
                             {talk.AgendaTypeName}
                           </span>
                         </div>

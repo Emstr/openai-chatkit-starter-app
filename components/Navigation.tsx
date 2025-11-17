@@ -19,12 +19,12 @@ export default function Navigation() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <nav className="border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 sticky top-0 z-50">
+    <nav className="border-b border-gray-200 bg-white sticky top-0 z-50">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           <Link 
             href="/" 
-            className="text-xl font-bold text-gray-900 dark:text-white"
+            className="text-xl font-bold text-gray-900"
             onClick={closeMenu}
           >
             Ask Marloo
@@ -41,7 +41,7 @@ export default function Navigation() {
                   className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
                     isActive
                       ? "bg-blue-600 text-white"
-                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                      : "text-gray-700 hover:bg-gray-100"
                   }`}
                 >
                   {item.label}
@@ -53,7 +53,7 @@ export default function Navigation() {
           {/* Mobile Hamburger Button */}
           <button
             onClick={toggleMenu}
-            className="md:hidden p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
             aria-label="Toggle menu"
             aria-expanded={isOpen}
           >
@@ -77,7 +77,7 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden pb-6 pt-2 border-t border-gray-200 dark:border-gray-800">
+          <div className="md:hidden pb-6 pt-2 border-t border-gray-200">
             <div className="flex flex-col gap-2 mt-4">
               {navItems.map((item) => {
                 const isActive = pathname === item.href;
@@ -89,7 +89,7 @@ export default function Navigation() {
                     className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                       isActive
                         ? "bg-blue-600 text-white"
-                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                        : "text-gray-700 hover:bg-gray-100"
                     }`}
                   >
                     {item.label}

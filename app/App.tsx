@@ -88,7 +88,7 @@ export default function App() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="group flex items-center gap-2 rounded-xl bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 px-6 py-3 text-base font-medium text-gray-900 dark:text-white transition-all hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-md"
+                className="group flex items-center gap-2 rounded-xl bg-white border-2 border-gray-200 px-6 py-3 text-base font-medium text-gray-900 transition-all hover:border-gray-300 hover:shadow-md"
               >
                 <IconComponent />
                 <span>{link.label}</span>
@@ -100,29 +100,29 @@ export default function App() {
         {/* Event Banner - More appealing design */}
         {showEvent && (
           <div className="mt-8 max-w-lg mx-auto">
-            <div className="group relative rounded-xl bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 dark:from-pink-950/20 dark:via-purple-950/20 dark:to-blue-950/20 px-6 py-5 text-center transition-all hover:shadow-lg border-2 border-pink-200/50 dark:border-pink-800/30 hover:border-pink-300 dark:hover:border-pink-700/50 overflow-hidden">
+            <div className="group relative rounded-xl bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 px-6 py-5 text-center transition-all hover:shadow-lg border-2 border-pink-200/50 hover:border-pink-300 overflow-hidden">
               {/* Decorative background elements */}
-              <div className="absolute inset-0 opacity-10 dark:opacity-5">
+              <div className="absolute inset-0 opacity-10">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-pink-400 rounded-full blur-3xl"></div>
                 <div className="absolute bottom-0 left-0 w-24 h-24 bg-purple-400 rounded-full blur-2xl"></div>
               </div>
               
               <div className="relative z-10">
                 <div className="mb-2">
-                  <h2 className="text-xs md:text-sm font-bold text-gray-900 dark:text-white leading-tight">
+                  <h2 className="text-xs md:text-sm font-bold text-gray-900 leading-tight">
                     Meet the Marloo team at Flight Club
                   </h2>
                 </div>
-                <p className="text-sm md:text-base font-bold text-gray-700 dark:text-gray-300 mb-2">
+                <p className="text-sm md:text-base font-bold text-gray-700 mb-2">
                   6:15 on Tuesday the 18th – Flight Club Perth
                 </p>
-                <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 mb-3 max-w-md mx-auto">
+                <p className="text-sm md:text-base text-gray-600 mb-3 max-w-md mx-auto">
                   Join the Marloo team for some friendly competition, drinks and bites at Flight Club Perth during the FAAA Congress.
                 </p>
                 <div className="flex items-center justify-between gap-3 mt-4">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-100 dark:bg-pink-900/30 border border-pink-200 dark:border-pink-800">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-100 border border-pink-200">
                     <span className="w-2 h-2 bg-pink-500 rounded-full animate-pulse"></span>
-                    <span className="text-xs font-semibold text-pink-700 dark:text-pink-300">
+                    <span className="text-xs font-semibold text-pink-700">
                       Limited spots remaining
                     </span>
                   </div>

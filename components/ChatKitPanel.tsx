@@ -361,15 +361,7 @@ export function ChatKitPanel({
       }
 
       if (invocation.name === "switch_theme") {
-        const requested = invocation.params.theme;
-        if (requested === "light" || requested === "dark") {
-          if (isDev) {
-            console.debug("[ChatKitPanel] switch_theme", requested);
-          }
-          onThemeRequest(requested);
-          setCurrentTool(null);
-          return { success: true };
-        }
+        // Theme switching disabled - always use light mode
         setCurrentTool(null);
         return { success: false };
       }

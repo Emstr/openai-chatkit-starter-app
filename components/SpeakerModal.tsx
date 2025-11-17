@@ -23,17 +23,17 @@ export function SpeakerModal({ speakerId, onClose }: SpeakerModalProps) {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-4xl max-h-[90vh] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden"
+        className="relative w-full max-w-4xl max-h-[90vh] bg-white"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors"
+          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-gray-100"
           aria-label="Close"
         >
           <svg
-            className="w-6 h-6 text-gray-600 dark:text-gray-300"
+            className="w-6 h-6 text-gray-600"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

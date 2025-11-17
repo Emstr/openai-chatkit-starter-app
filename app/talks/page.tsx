@@ -78,8 +78,8 @@ export default function TalksPage() {
       {/* Main content */}
       <div className="container mx-auto px-6 py-12 max-w-6xl">
       {/* Day Filter Navigation */}
-      <div className="mb-12 flex flex-wrap items-center gap-3 border-b border-gray-200 dark:border-gray-700 pb-6">
-        <span className="text-sm font-medium text-gray-700 dark:text-gray-300 mr-2">Filter by day:</span>
+      <div className="mb-12 flex flex-wrap items-center gap-3 border-b border-gray-200">
+        <span className="text-sm font-medium text-gray-700">Filter by day:</span>
         {(["all", "Tuesday", "Wednesday", "Thursday"] as DayFilter[]).map((day) => (
           <button
             key={day}
@@ -87,21 +87,21 @@ export default function TalksPage() {
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               selectedDay === day
                 ? "bg-blue-600 text-white shadow-sm"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                : "bg-gray-100"
             }`}
           >
             {day === "all" ? "All Days" : day}
           </button>
         ))}
         {selectedDay !== "all" && (
-          <span className="ml-auto text-sm text-gray-500 dark:text-gray-400">
+          <span className="ml-auto text-sm text-gray-500">
             {filteredTalks.length} talk{filteredTalks.length !== 1 ? "s" : ""} on {selectedDay}
           </span>
         )}
       </div>
       
       {filteredTalks.length === 0 ? (
-        <p className="text-gray-600 dark:text-gray-400">
+        <p className="text-gray-600">
           {selectedDay === "all" 
             ? "No talks available yet." 
             : `No talks found for ${selectedDay}.`}
@@ -112,10 +112,10 @@ export default function TalksPage() {
             <Link
               key={talk.Id}
               href={`/talks/${getTalkSlug(talk)}`}
-              className="group relative block bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+              className="group relative block bg-white"
             >
               {/* Subtle gradient overlay on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 to-purple-50/0 group-hover:from-blue-50/50 group-hover:to-purple-50/30 dark:group-hover:from-blue-900/10 dark:group-hover:to-purple-900/10 transition-all duration-300 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 to-purple-50/0 group-hover:from-blue-50/50 group-hover:to-purple-50/30" />
               
               <div className="relative">
                 {/* Speaker Photos */}
@@ -137,8 +137,8 @@ export default function TalksPage() {
                               />
                             </div>
                           ) : (
-                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center shadow-md border-2 border-white">
-                              <svg className="w-6 h-6 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-200 to-gray-300">
+                              <svg className="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                               </svg>
                             </div>
@@ -155,7 +155,7 @@ export default function TalksPage() {
                 )}
 
                 {/* Title */}
-                <h2 className="!text-lg md:!text-xl font-bold mb-3 text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                <h2 className="!text-lg md:!text-xl font-bold mb-3 text-gray-900">
                   {talk.Name}
                 </h2>
 
@@ -164,11 +164,11 @@ export default function TalksPage() {
                   <div className="mb-3 space-y-2">
                     {talk.Speakers.slice(0, 2).map((speaker, idx) => (
                       <div key={speaker.DisplayName || `speaker-${idx}`}>
-                        <div className="text-gray-700 dark:text-gray-300 text-sm font-medium">
+                        <div className="text-gray-700">
                           {speaker.DisplayName}
                         </div>
                         {(speaker.Position || speaker.Organization) && (
-                          <div className="text-gray-600 dark:text-gray-400 text-xs mt-0.5">
+                          <div className="text-gray-600">
                             {speaker.Position && speaker.Organization
                               ? `${speaker.Position} • ${speaker.Organization}`
                               : speaker.Position || speaker.Organization}
@@ -177,7 +177,7 @@ export default function TalksPage() {
                       </div>
                     ))}
                     {talk.Speakers.length > 2 && (
-                      <div className="text-gray-500 dark:text-gray-400 text-sm font-medium pt-1">
+                      <div className="text-gray-500">
                         +{talk.Speakers.length - 2} more speaker{talk.Speakers.length - 2 !== 1 ? "s" : ""}
                       </div>
                     )}
@@ -186,15 +186,15 @@ export default function TalksPage() {
 
                 {/* Overview */}
                 {talk.Overview && (
-                  <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-3 mb-4 leading-relaxed">
+                  <p className="text-gray-600">
                     {talk.Overview.replace(/<[^>]*>/g, "")}
                   </p>
                 )}
 
                 {/* Footer with time and location */}
-                <div className="flex items-center gap-3 pt-4 mt-4 border-t border-gray-100 dark:border-gray-700">
+                <div className="flex items-center gap-3 pt-4 mt-4 border-t border-gray-100">
                   {talk.StartTime && (
-                    <div className="flex items-center gap-1.5 text-xs text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center gap-1.5 text-xs text-gray-600">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
@@ -202,7 +202,7 @@ export default function TalksPage() {
                     </div>
                   )}
                   {talk.Location && (
-                    <div className="flex items-center gap-1.5 text-xs text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center gap-1.5 text-xs text-gray-600">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -213,8 +213,8 @@ export default function TalksPage() {
                 </div>
 
                 {/* View talk indicator */}
-                <div className="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700">
-                  <span className="text-xs text-gray-400 dark:text-gray-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors inline-flex items-center gap-1">
+                <div className="mt-4 pt-3 border-t border-gray-100">
+                  <span className="text-xs text-gray-400">
                     View talk details
                     <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
