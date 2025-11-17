@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChatKit, useChatKit } from "@openai/chatkit-react";
+import { track } from "@vercel/analytics";
 import {
   STARTER_PROMPTS,
   PLACEHOLDER_INPUT,
@@ -401,6 +402,8 @@ export function ChatKitPanel({
     onResponseStart: () => {
       setAgentActivity("Agent is thinking...");
       setErrorState({ integration: null, retryable: false });
+      // Track message sent event
+      track("message_sent");
     },
     onThreadChange: () => {
       processedFacts.current.clear();

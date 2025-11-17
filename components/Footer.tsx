@@ -3,7 +3,25 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 mt-auto" style={{ minHeight: '500px' }}>
-      <div className="container mx-auto px-4 h-full flex items-center justify-center">
+      <div className="container mx-auto px-4 h-full flex flex-col items-center justify-center gap-6">
+        <div className="flex flex-wrap items-center justify-center gap-6">
+          <Link
+            href="https://www.gomarloo.com/bookings/au?utm_source=askmarloo"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+          >
+            Book a demo of Marloo
+          </Link>
+          <Link
+            href="https://www.gomarloo.com/case-studies?utm_campaign=askmarloo"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+          >
+            Read Marloo case studies
+          </Link>
+        </div>
         <Link
           href="https://www.gomarloo.com"
           target="_blank"
