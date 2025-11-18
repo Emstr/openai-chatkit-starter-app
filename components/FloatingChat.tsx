@@ -28,11 +28,11 @@ export function FloatingChat() {
         <div className="fixed bottom-0 left-0 right-0 z-[80] mx-auto w-full max-w-[760px] px-4 pb-6">
           <button
             onClick={openChat}
-            className="w-full cursor-pointer"
+            className="w-full"
             aria-label="Open chat"
           >
             {/* Match ChatKit composer styling - rounded-full per theme config */}
-            <div className="flex w-full items-center gap-4 rounded-full border-2 border-gray-200 bg-white px-6 py-5 shadow-sm transition-all hover:border-gray-300 hover:shadow-md hover:bg-gray-50 active:scale-[0.98]">
+            <div className="flex w-full items-center gap-4 rounded-full border-2 border-gray-200 bg-white px-6 py-5 shadow-sm transition-all hover:border-gray-300 hover:shadow-md">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

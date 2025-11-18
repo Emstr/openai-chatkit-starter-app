@@ -93,7 +93,7 @@ export default function App() {
                 <button
                   key={link.href}
                   onClick={link.onClick}
-                  className="group flex items-center gap-2 rounded-xl bg-white border-2 border-gray-200 px-6 py-3 text-base font-medium text-gray-900 transition-all hover:border-gray-300 hover:shadow-md hover:bg-gray-50 cursor-pointer active:scale-[0.98]"
+                  className="group flex items-center gap-2 rounded-xl bg-white border-2 border-gray-200 px-6 py-3 text-base font-medium text-gray-900 transition-all hover:border-gray-300 hover:shadow-md"
                 >
                   <IconComponent />
                   <span>{link.label}</span>
@@ -104,7 +104,7 @@ export default function App() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="group flex items-center gap-2 rounded-xl bg-white border-2 border-gray-200 px-6 py-3 text-base font-medium text-gray-900 transition-all hover:border-gray-300 hover:shadow-md hover:bg-gray-50 cursor-pointer active:scale-[0.98]"
+                className="group flex items-center gap-2 rounded-xl bg-white border-2 border-gray-200 px-6 py-3 text-base font-medium text-gray-900 transition-all hover:border-gray-300 hover:shadow-md"
               >
                 <IconComponent />
                 <span>{link.label}</span>

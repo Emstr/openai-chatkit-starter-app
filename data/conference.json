@@ -8586,8 +8586,8 @@
         "Title": null,
         "FirstName": "Liam",
         "LastName": "Bartlett",
-        "Position": null,
-        "Organization": "Award Winning Australian Journalist & Broadcaster",
+        "Position": "Chief Correspondent",
+        "Organization": "7NEWS Spotlight, Seven Network",
         "PhotoUrl": "https://airdrive.eventsair.com/eventsairaueprod/production-fpa-public/3d010d686da44cedafdca6dc16f48294",
         "IsPresentingAuthor": false,
         "Order": null,
@@ -8620,7 +8620,7 @@
           "EmptyLinksCount": 7
         },
         "SocialMediaLinks": [],
-        "Bio": "Liam Bartlett is an award-winning Australian journalist and broadcaster with a career spanning almost four decades across television, radio, and print media. <br/>He has enjoyed an extensive career reporting for the Nine Network's 60 Minutes program and has hosted the state-wide morning program, both on the ABC and Perth's 6PR radio station. <br/>Liam is currently the Chief Correspondent for the Seven Network’s flagship current affairs program, 7NEWS Spotlight, where he has conducted in-depth investigations into critical public interest issues<br/><p><br/><b><u><a href=\"https://youtu.be/N8jO3mBJVzo\" target=\"_blank\">Watch Liam's video</a></u></b>",
+        "Bio": "Liam Bartlett is an award-winning Australian journalist and broadcaster with a career spanning almost four decades across television, radio, and print media. He has enjoyed an extensive career reporting for the Nine Network's 60 Minutes program and has hosted the state-wide morning program, both on the ABC and Perth's 6PR radio station. Liam is currently the Chief Correspondent for the Seven Network's flagship current affairs program, 7NEWS Spotlight, where he has conducted in-depth investigations into critical public interest issues.",
         "Presentations": [
           {
             "Title": "Plenary 4 - Ahead of the Game – Cricket & Financial Planning — Lessons from the Legends",

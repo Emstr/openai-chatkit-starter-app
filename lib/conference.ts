@@ -140,7 +140,14 @@ export function getSpeakerById(id: string): Speaker | undefined {
 }
 
 export function getAllTalks(): Talk[] {
-  return conference.AgendaData.AgendaItems.filter((item) => item.IsSession);
+  const excludedTalks = [
+    "UniSuper Student Workshop",
+    "FAAA Annual General Meeting"
+  ];
+  
+  return conference.AgendaData.AgendaItems.filter(
+    (item) => item.IsSession && !excludedTalks.includes(item.Name)
+  );
 }
 
 export function getAllSpeakers(): Speaker[] {
