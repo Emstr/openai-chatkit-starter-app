@@ -42,27 +42,27 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link
-                  href="https://www.gomarloo.com/bookings/au?utm_source=askmarloo"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
-                >
-                  Book a demo of Marloo
-                </Link>
+          <Link
+            href="https://www.gomarloo.com/bookings/au?utm_source=askmarloo"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            Book a demo of Marloo
+          </Link>
               </li>
               <li>
-                <Link
-                  href="https://www.gomarloo.com/case-studies?utm_campaign=askmarloo"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
-                >
-                  Read Marloo case studies
-                </Link>
+          <Link
+            href="https://www.gomarloo.com/case-studies?utm_campaign=askmarloo"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            Read Marloo case studies
+          </Link>
               </li>
             </ul>
-          </div>
+        </div>
 
           {/* Mobile App Downloads */}
           <div className="space-y-4">
@@ -84,10 +84,10 @@ export default function Footer() {
                   className="h-10 w-auto"
                 />
               </Link>
-              <Link
+        <Link
                 href="https://gomarloo.com/download"
-                target="_blank"
-                rel="noopener noreferrer"
+          target="_blank"
+          rel="noopener noreferrer"
                 className="inline-block transition-transform hover:scale-105"
               >
                 <Image
@@ -97,7 +97,7 @@ export default function Footer() {
                   height={40}
                   className="h-10 w-auto"
                 />
-              </Link>
+        </Link>
             </div>
           </div>
         </div>

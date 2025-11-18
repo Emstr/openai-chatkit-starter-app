@@ -85,6 +85,7 @@ export function ChatKitPanel({
     }
 
     let timeoutId: number | undefined;
+    let checkInterval: number | undefined;
 
     const handleLoaded = () => {
       if (!isMountedRef.current) {
@@ -114,16 +115,36 @@ export function ChatKitPanel({
     if (window.customElements?.get("openai-chatkit")) {
       handleLoaded();
     } else if (scriptStatus === "pending") {
-      timeoutId = window.setTimeout(() => {
-        if (!window.customElements?.get("openai-chatkit")) {
-          handleError(
-            new CustomEvent("chatkit-script-error", {
-              detail:
-                "ChatKit web component is unavailable. Verify that the script URL is reachable.",
-            })
-          );
+      // Check periodically if the script has loaded
+      checkInterval = window.setInterval(() => {
+        if (window.customElements?.get("openai-chatkit")) {
+          if (checkInterval) {
+            clearInterval(checkInterval);
+            checkInterval = undefined;
+          }
+          handleLoaded();
         }
-      }, 5000);
+      }, 100);
+      
+      timeoutId = window.setTimeout(() => {
+        if (checkInterval) {
+          clearInterval(checkInterval);
+          checkInterval = undefined;
+        }
+        if (!window.customElements?.get("openai-chatkit")) {
+          // Only show error in production, in dev just log it
+          if (process.env.NODE_ENV === "production") {
+            handleError(
+              new CustomEvent("chatkit-script-error", {
+                detail:
+                  "ChatKit web component is unavailable. Verify that the script URL is reachable.",
+              })
+            );
+          } else {
+            console.warn("ChatKit script not loaded yet, but continuing in development mode");
+          }
+        }
+      }, 10000); // Increased timeout to 10 seconds
     }
 
     return () => {
@@ -134,6 +155,9 @@ export function ChatKitPanel({
       );
       if (timeoutId) {
         window.clearTimeout(timeoutId);
+      }
+      if (checkInterval) {
+        clearInterval(checkInterval);
       }
     };
   }, [scriptStatus, setErrorState]);

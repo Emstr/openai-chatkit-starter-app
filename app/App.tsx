@@ -68,7 +68,7 @@ export default function App() {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: 'url(/b-gradient.png)',
+          backgroundImage: 'url(/b-gradient-comp.png)',
         }}
       />
       
