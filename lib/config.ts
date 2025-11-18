@@ -17,11 +17,6 @@ export const STARTER_PROMPTS: StartScreenPrompt[] = [
     icon: "sparkle",
   },
   {
-    label: "Find speakers",
-    prompt: "Find speakers",
-    icon: "user",
-  },
-  {
     label: "What talks are happening?",
     prompt: "What talks are happening?",
     icon: "document",
